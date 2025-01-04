@@ -4,7 +4,7 @@
 
 ## 📚 Overview  
 This project implements a **Library Management System (LMS)** in **Java**, supporting **dual storage options**:  
-1. **File-Based Storage:** Data stored in structured files (`.txt`, `.csv`).  
+1. **File-Based Storage:** Data stored in structured files (`.txt`).  
 2. **SQL Server (SSMS):** Database integration for persistent storage and CRUD operations.  
 
 The user is prompted to select the storage method at the start, and both storage types are fully functional and seamlessly integrated.
