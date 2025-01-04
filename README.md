@@ -63,7 +63,59 @@ The user is prompted to select the storage method at the start, and both storage
 - **Views:** User interface for interacting with the system.  
 
 ---
+##
+-- Books table
+CREATE TABLE Books (
+    bookID VARCHAR(20) PRIMARY KEY,
+    title VARCHAR(100),
+    author VARCHAR(100),
+    isbn VARCHAR(20),
+    publicationYear INT,
+    genre VARCHAR(50),
+    baseLoanFee FLOAT,
+    bookType VARCHAR(20),
+    loanStatus BIT DEFAULT 0  -- 0 means available, 1 means on loan
+);
 
+-- Create the Users table
+CREATE TABLE Users (
+    userID VARCHAR(20) PRIMARY KEY,
+    name VARCHAR(100),
+    email VARCHAR(100),
+    phone VARCHAR(20),
+    address VARCHAR(100),
+    userType VARCHAR(20),
+    totalLoanFees FLOAT DEFAULT 0
+);
+
+-- Create the Loans table to track active loans
+CREATE TABLE Loans (
+    loanID INT PRIMARY KEY IDENTITY(1,1),
+    userID VARCHAR(20) FOREIGN KEY REFERENCES Users(userID),
+    bookID VARCHAR(20) FOREIGN KEY REFERENCES Books(bookID),
+    loanDate DATE,
+    returnDate DATE,
+    loanFee FLOAT,
+    loanExtended BIT DEFAULT 0  -- 0 means not extended, 1 means extended
+);
+
+-- Create the Penalties table for managing overdue penalties
+CREATE TABLE Penalties (
+    penaltyID INT PRIMARY KEY IDENTITY(1,1),
+    userID VARCHAR(20) FOREIGN KEY REFERENCES Users(userID),
+    penaltyAmount FLOAT,
+    penaltyDate DATE
+);
+
+-- Create the Revenue table to store historical revenue data
+CREATE TABLE Revenue (
+    revenueID INT PRIMARY KEY IDENTITY(1,1),
+    amount FLOAT,
+    revenueType VARCHAR(20),  -- "Loan" or "Penalty"
+    transactionDate DATE
+);
+
+---
 ## 📥 **Setup Instructions:**  
 1. Clone the repository:  
    ```bash
